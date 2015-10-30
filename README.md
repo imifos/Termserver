@@ -1,3 +1,7 @@
+IMPORTANT:
+This repository is clone of the original one made the 30/10/2015. I just stripped the commit history (which was nearly 1 GB) and DB/WAR.JAR files. Please refer to the original for serious things.
+
+
 Terminology Server
 ==================
 
