@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+  <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" root="./winCSDetails"?>
+  <window id="winCSDetails" use="de.fhdo.gui.main.modules.PopupCodeSystem" width="900px"
+          closable="true" border="normal" sizable="true" >
+    
+    <borderlayout vflex="min">
+      <center border="none" flex="true" vflex="min">
+        <tabbox id="tabboxFilter" >
+          <tabs>
+            <tab id="tabDetails" label="${labels.common.details}" />
+            <tab id="tabMetaParameter" label="${labels.common.metaParameter}"/>
+            <tab id="tabTaxonomy" label="${labels.common.taxonomy}"/>
+          </tabs>
+          <tabpanels>
+            <tabpanel id="tabpanelDetails">
+              <groupbox id="gbCS" mold="3d" width="100%" title="${labels.common.codeSystem}"
+                        closable="false" vflex="min">
+                <caption>
+                  <toolbar hflex="min">
+                    <hbox >
+                      <toolbarbutton id="buttonExpandCS" image="/rsc/img/symbols/expand_16x16.png"
+                                     onClick="winCSDetails.onClickExpandCS()"/>
+                    </hbox>
+                  </toolbar>
+                </caption>
+                
+                <grid id="gridCS" hflex="true" height="100%" >
+                  <columns sizable="true">
+                    <column width="220px"/>
+                    <column/>
+                  </columns>
+                  <rows> 
+                    
+                    <row>
+                      <label value="${labels.common.name}:" id ="lName" />   
+                      <textbox id="tbCSName" value="@{winCSDetails.codeSystem.name}" hflex="true" sclass="mandatory"/>
+                    </row>
+                    <row>
+                      <label value="${labels.common.description}:"/>
+                      <textbox id="tbCSDescription" value="@{winCSDetails.codeSystem.description}" multiline="true" hflex="true"
+                               rows="3"/>
+                    </row>                                    
+                    <row id="rowDescriptionEng">
+                      <!--<row visible="@{bean.guiCodesystemMinimalVisible}">-->
+                      <label value="${labels.common.descriptionEng}:"/>
+                      <textbox id="tbCSDescriptionEng" value="@{winCSDetails.codeSystem.descriptionEng}" multiline="true" hflex="true"/>
+                    </row>
+                    <row>
+                      <label value="${labels.common.website}:"/>
+                      <textbox id="tbWebsite" value="@{winCSDetails.codeSystem.website}" hflex="true"/>
+                    </row>
+                    
+                  </rows>
+                </grid>
+              </groupbox>
+              <separator/>
+              <groupbox id="gbVersion" mold="3d" width="100%" title="${labels.common.version}"
+                        closable="false" >
+                <caption>
+                  <toolbar hflex="min">
+                    <hbox>
+                      <toolbarbutton id="buttonExpandCSV" image="/rsc/img/symbols/expand_16x16.png"
+                                     onClick="winCSDetails.onClickExpandCSV()"/>
+                    </hbox>
+                  </toolbar>
+                </caption>
+                <grid hflex="true" height="100%" >
+                  <columns sizable="true">
+                    <column width="220px"/>
+                    <column/>
+                  </columns>
+                  <rows> 
+                    <row>
+                      <label value="${labels.common.name}:" id="lNameVersion"/>
+                      <textbox id="tbCSVName" value="@{winCSDetails.codeSystemVersion.name}" hflex="true" sclass="mandatory"/>
+                    </row>
+                    <row>
+                      <label value="${labels.common.description}:"/>          
+                      <textbox id="tbCSVDescription" value="@{winCSDetails.codeSystemVersion.description}" multiline="true" hflex="true"
+                               rows="3"/>
+                    </row>
+                    <row id="rowValidityRange">
+                      <label value="${labels.common.validityRange}:"/>
+                      <combobox id="cboxCSVValidityRange" hflex="true" readonly="true" sclass="mandatory"/>
+                    </row>
+                    <row id="rowDateFrom">
+                      <label value="${labels.common.releasedAt}:"/>           
+                      <datebox id="dateBoxRD" format="medium+medium" width="150px"/>
+                    </row>
+                    <row id="rowDateTo">
+                      <label value="${labels.common.expireAt}:"/>             
+                      <datebox id="dateBoxED" format="medium+medium" width="150px"/>
+                    </row>
+                    <row>
+                      <label value="${labels.common.source}:"/>
+                      <textbox id="tbCSVSource" value="@{winCSDetails.codeSystemVersion.source}" hflex="true"/>
+                    </row>
+                    <row>
+                      <label value="${labels.common.oid}:"/>  
+                      <cell colspan="2">
+                        <button id="bOidBeantragen" label="${labels.common.oidBEnquiry}" visible="false"/>                 
+                        <textbox id="tbCSVOId" value="@{winCSDetails.codeSystemVersion.oid}" hflex="true"/>
+                      </cell>
+                    </row>
+                    <row id="rowCSVStatus">
+                      <label value="${labels.common.status}:"/>               
+                      <!--<textbox id="tbCSVStatus" value="@{winCSDetails.codeSystemVersion.status}" hflex="true"/>-->
+                      <hbox hflex="true">
+                        <combobox id="cboxStatus" readonly="true" width="170px" disabled="true"/>
+                        <datebox id="dateBoxSD" format="medium+medium" width="150px" disabled="true"/>
+                      </hbox>
+                    </row>
+<!--                    <row id="rowCSVStatusLastEdited" >
+                      <label value="${labels.common.statusLastEdited}"/>     
+                      <datebox id="dateBoxSD" format="medium+medium" width="150px" disabled="true"/>
+                    </row>-->
+                    <row id="rowCSVPrefLang" >
+                      <label value="${labels.common.preferredLanguage}:"/>    
+                      <combobox id="cboxPreferredLanguage" hflex="true" readonly="true"/>
+                    </row>
+                    <row id="rowCSVLicence">
+                      <label id="lLic" value="${labels.common.licenced}/${labels.common.licenceHolder}:"/>
+                      <hbox hflex="true">
+                        <checkbox id="cbCSVLicenced" value="@{winCSDetails.codeSystemVersion.underLicence}"/>
+                        <textbox id="tbCSVLicenceHolder" value="@{winCSDetails.codeSystemVersion.licenceHolder}"  hflex="true"/>
+                      </hbox>
+                    </row>
+<!--                    <row id="rowCSVLicenceHolder">
+                      <label value="${labels.common.licenceHolder}"/>        
+                      <textbox  id="tbCSVLicenceHolder" value="@{winCSDetails.codeSystemVersion.licenceHolder}"  hflex="true"/>
+                    </row>               -->
+                  </rows>
+                </grid>
+              </groupbox>
+            </tabpanel>
+            <tabpanel id="tabpanelMetaparameter" >
+              <include id="incList" src="~./zul/pages/GenericList.zul"/>
+<!--              <listbox id="listMetadataParameter" vflex="true" height="99%" hflex="true" >
+                <listhead></listhead>
+              </listbox>-->
+            </tabpanel>
+            <tabpanel id="tabpanelTaxonomy" >
+              <include id="incTree" src="/gui/templates/GenericTree.zul"/>
+            </tabpanel>
+          </tabpanels>
+        </tabbox>
+      </center>
+      <south border="none" style="text-align:right">
+        <div style="padding-top:5px; margin-right:4px; margin-bottom:4px;">
+          <checkbox id="cbNewVersion" label="${labels.common.createNewVersion}" onCheck="cbCopyConcepts.visible=cbNewVersion.checked" /> 
+          <checkbox id="cbCopyConcepts" label="${labels.common.copyConcepts}" visible="false"/> 
+          <separator orient="vertical"/>
+          <button id="bCreate" label="${labels.common.save}" onClick="winCSDetails.onOkClicked()" autodisable="self"/>
+          <button id="bCancel" label="${labels.common.close}" onClick="winCSDetails.onCancelClicked()"/>
+        </div>         
+      </south>
+    </borderlayout>    
+  </window>
+</zk>
